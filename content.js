@@ -1,6 +1,6 @@
 const cv = {
   name: "Philippe Hosey Vinchon",
-  headline: "Lead Engineer · 18 years",
+  headline: "Staff Engineer · 18 years experience",
   location: "Kilkenny, Ireland · Remote",
   email: "p.vinchon@gmail.com",
   phone: "+353 85 117 4745",
