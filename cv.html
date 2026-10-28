@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>Philippe Vinchon CV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,6 +50,7 @@
   }
 
   a:hover { text-decoration: underline; text-underline-offset: 2px; }
+  strong { font-weight: 600; color: var(--color-ink); }
 }
 
 @layer components {
@@ -87,215 +89,60 @@
 }
 </style>
 
-<div class="sheet">
+<div id="cv"></div>
 
-  <header class="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
-    <div>
-      <h1 class="text-name font-extrabold tracking-[-0.04em] text-ink text-balance">
-        Philippe Hosey Vinchon
-      </h1>
-      <p class="mt-2 text-lead">
-        Lead Engineer &middot; 18 years
-      </p>
-    </div>
-    <div class="text-meta tabular-nums leading-[1.9] text-muted text-right">
-      Kilkenny, Ireland &middot; Remote<br>
-      <a class="text-accent" href="mailto:p.vinchon@gmail.com">p.vinchon@gmail.com</a><br>
-      +353 85 117 4745<br>
-    </div>
-  </header>
+<script src="content.js"></script>
+<script>
+const link = (href) =>
+  `<a class="text-accent" href="${href}">${href.replace(/^(https?:\/\/|mailto:)/, "")}</a>`;
 
-  <div class="mt-10 flex flex-col gap-4 text-lead">
-    <p>
-      For eighteen years, I&rsquo;ve been building software: websites, microservices, data
-      pipelines, and machine learning. If it had a buzz name, I probably touched it.
-      I&rsquo;ve learned how to break down problems, weigh different approaches, and choose
-      the right trade-offs. Writing the code was often the slow part.
-    </p>
-    <p>
-      Now, I let AI agents do much of that work. I set the goal, answer their questions,
-      and steer them towards a solution I know will work. I usually have several agents
-      working in parallel, so I can focus on the next problem while they handle the
-      implementation.
-    </p>
+const entry = (e, gap) => `
+  <article class="${gap} grid grid-cols-[theme(spacing.rail)_1fr] gap-x-7 break-inside-avoid">
+    <div class="pt-1.5 text-meta tabular-nums text-muted">
+      ${e.from}<br>${e.to}
+      <span class="mt-1 block text-faint">${e.duration}</span>
+    </div>
+    <div class="min-w-0">
+      <h3 class="text-h2 font-bold tracking-tight text-ink">
+        ${e.name}
+        ${e.url ? `<span class="text-org font-normal text-muted">${e.note ? `${e.note} ` : ""}&middot; ${link(e.url)}</span>` : ""}
+      </h3>
+      ${e.bullets ? `<ul class="bullets mt-2 flex flex-col gap-1">${e.bullets.map((b) => `<li>${b}</li>`).join("")}</ul>` : ""}
+      ${e.text ? `<p class="mt-2">${e.text}</p>` : ""}
+      ${e.stack ? `<p class="mt-2 text-meta text-muted">${e.stack.join(" &middot; ")}</p>` : ""}
+    </div>
+  </article>`;
+
+const entries = (list, gap) => list.map((e, i) => entry(e, i ? gap : "")).join("");
+
+document.getElementById("cv").innerHTML = `
+  <div class="sheet">
+    <header class="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+      <div>
+        <h1 class="text-name font-extrabold tracking-[-0.04em] text-ink text-balance">${cv.name}</h1>
+        <p class="mt-2 text-lead">${cv.headline}</p>
+      </div>
+      <div class="text-meta tabular-nums leading-[1.9] text-muted text-right">
+        ${cv.location}<br>
+        ${link(`mailto:${cv.email}`)}<br>
+        ${cv.phone}<br>
+      </div>
+    </header>
+
+    <div class="mt-10 flex flex-col gap-4 text-lead">
+      ${cv.intro.map((p) => `<p>${p}</p>`).join("")}
+    </div>
+
+    <section class="mt-12">
+      <h2 class="mb-4 text-section font-extrabold tracking-[-0.03em] text-ink">${cv.projects.title}</h2>
+      ${entries(cv.projects.entries, "mt-6")}
+    </section>
   </div>
 
-  <section class="mt-12">
-    <h2 class="mb-4 text-section font-extrabold tracking-[-0.03em] text-ink">
-      Personal projects
-    </h2>
-
-    <article class="grid grid-cols-[theme(spacing.rail)_1fr] gap-x-7 break-inside-avoid">
-      <div class="pt-1.5 text-meta tabular-nums text-muted">
-        Sep 2025<br>now
-        <span class="mt-1 block text-faint">1 yr 2 mo</span>
-      </div>
-      <div class="min-w-0">
-        <h3 class="text-h2 font-bold tracking-tight text-ink">
-          LittleLamb.ie
-          <span class="text-org font-normal text-muted">&middot; <a class="text-accent" href="https://littlelamb.ie">littlelamb.ie</a></span>
-        </h3>
-        <ul class="bullets mt-2 flex flex-col gap-1">
-          <li>Compliance platform that keeps the records a Tusla inspection asks for in one
-              place: children, staff vetting and qualifications, incidents, complaints,
-              insurance, medication, fire drills and attendance.</li>
-          <li>A readiness dashboard groups what is missing by the regulation it breaches, so
-              a gap reads as the requirement it fails rather than an empty field.</li>
-        </ul>
-        <p class="mt-2 text-meta text-muted">Go &middot; GraphQL &middot; SvelteKit &middot; PostgreSQL &middot; Cloud Run</p>
-      </div>
-    </article>
-
-    <article class="mt-6 grid grid-cols-[theme(spacing.rail)_1fr] gap-x-7 break-inside-avoid">
-      <div class="pt-1.5 text-meta tabular-nums text-muted">
-        Feb 2023<br>Sep 2024
-        <span class="mt-1 block text-faint">1 yr 8 mo</span>
-      </div>
-      <div class="min-w-0">
-        <h3 class="text-h2 font-bold tracking-tight text-ink">
-          Nok.ie
-          <span class="text-org font-normal text-muted">&middot; <a class="text-accent" href="https://github.com/nokdotie">github.com/nokdotie</a></span>
-        </h3>
-        <ul class="bullets mt-2 flex flex-col gap-1">
-          <li>Every Irish property for sale in one place. Scrapers collect listings from
-              various portals and merge duplicate listings.</li>
-          <li>Each listing is joined to public record, so it carries its energy rating from
-              the SEAI register and what the house last sold for from the Property Price
-              Register.</li>
-        </ul>
-        <p class="mt-2 text-meta text-muted">Scala 3 &middot; ZIO &middot; GraphQL &middot; SvelteKit &middot; Firestore &middot; Cloud Run</p>
-      </div>
-    </article>
-  </section>
-
-</div>
-
-<div class="sheet">
-
-  <section class="pt-6">
-    <h2 class="mb-3 text-section font-extrabold tracking-[-0.03em] text-ink">
-      Experience
-    </h2>
-
-    <article class="grid grid-cols-[theme(spacing.rail)_1fr] gap-x-7 break-inside-avoid">
-      <div class="pt-1.5 text-meta tabular-nums text-muted">
-        Jan 2025<br>Oct 2026
-        <span class="mt-1 block text-faint">1 yr 10 mo</span>
-      </div>
-      <div class="min-w-0">
-        <h3 class="text-h2 font-bold tracking-tight text-ink">
-          Spoak Design
-          <span class="text-org font-normal text-muted">&middot; <a class="text-accent" href="https://spoak.com">spoak.com</a></span>
-        </h3>
-        <ul class="bullets mt-2 flex flex-col gap-1">
-          <li>Built and ran the product&rsquo;s image and text search: a CLIP model served on GPU,
-              the Elasticsearch vector index, and the catalogue re-indexing.</li>
-          <li>Built the credit ledger that prices the generative tools, and moved the
-              business off monthly subscriptions onto it.</li>
-          <li>Built the shared Scala libraries the other services depend on, replacing logic
-              that had been duplicated across several monoliths.</li>
-        </ul>
-        <p class="mt-2 text-meta text-muted">Scala &middot; Python &middot; PyTorch &middot; Vue &middot; PostgreSQL &middot; Elasticsearch &middot; GCP</p>
-      </div>
-    </article>
-
-    <article class="mt-4 grid grid-cols-[theme(spacing.rail)_1fr] gap-x-7 break-inside-avoid">
-      <div class="pt-1.5 text-meta tabular-nums text-muted">
-        Oct 2023<br>Jan 2025
-        <span class="mt-1 block text-faint">1 yr 4 mo</span>
-      </div>
-      <div class="min-w-0">
-        <h3 class="text-h2 font-bold tracking-tight text-ink">
-          Utmost
-          <span class="text-org font-normal text-muted">(now Beeline) &middot; <a class="text-accent" href="https://beeline.com">beeline.com</a></span>
-        </h3>
-        <ul class="bullets mt-2 flex flex-col gap-1">
-          <li>Replaced nulls and thrown exceptions with Optional and Result types, so a
-              failure shows up in the function&rsquo;s signature rather than in production.</li>
-          <li>Standardised the GraphQL API across teams, giving clients one contract instead
-              of a variant per team.</li>
-        </ul>
-        <p class="mt-2 text-meta text-muted">Kotlin &middot; GraphQL</p>
-      </div>
-    </article>
-
-    <article class="mt-4 grid grid-cols-[theme(spacing.rail)_1fr] gap-x-7 break-inside-avoid">
-      <div class="pt-1.5 text-meta tabular-nums text-muted">
-        Dec 2021<br>Jul 2023
-        <span class="mt-1 block text-faint">1 yr 8 mo</span>
-      </div>
-      <div class="min-w-0">
-        <h3 class="text-h2 font-bold tracking-tight text-ink">
-          Thrive Global
-          <span class="text-org font-normal text-muted">&middot; <a class="text-accent" href="https://thriveglobal.com">thriveglobal.com</a></span>
-        </h3>
-        <ul class="bullets mt-2 flex flex-col gap-1">
-          <li>Designed and built video discovery from the backend to the UI, as rows of
-              videos whose selection was personalised per user.</li>
-          <li>Built a testing framework that finds service degradation before a user reports it.</li>
-          <li>Built an automated dependency-update service, which keeps the platform patched
-              without anyone tracking it by hand.</li>
-        </ul>
-        <p class="mt-2 text-meta text-muted">Kotlin &middot; TypeScript &middot; PostgreSQL &middot; Redis</p>
-      </div>
-    </article>
-
-    <article class="mt-4 grid grid-cols-[theme(spacing.rail)_1fr] gap-x-7 break-inside-avoid">
-      <div class="pt-1.5 text-meta tabular-nums text-muted">
-        Jun 2020<br>Nov 2021
-        <span class="mt-1 block text-faint">1 yr 6 mo</span>
-      </div>
-      <div class="min-w-0">
-        <h3 class="text-h2 font-bold tracking-tight text-ink">
-          TD Securities
-          <span class="text-org font-normal text-muted">&middot; <a class="text-accent" href="https://tdsecurities.com">tdsecurities.com</a></span>
-        </h3>
-        <ul class="bullets mt-2 flex flex-col gap-1">
-          <li>Ran weekly technical training for engineers across the team, and wrote the
-              internal engineering standards that came out of it.</li>
-          <li>Replaced thrown exceptions with sealed traits naming each success and error
-              state, so the compiler flags any state a caller leaves unhandled.</li>
-        </ul>
-        <p class="mt-2 text-meta text-muted">Scala &middot; MongoDB</p>
-      </div>
-    </article>
-
-    <article class="mt-4 grid grid-cols-[theme(spacing.rail)_1fr] gap-x-7 break-inside-avoid">
-      <div class="pt-1.5 text-meta tabular-nums text-muted">
-        Aug 2018<br>May 2020
-        <span class="mt-1 block text-faint">1 yr 10 mo</span>
-      </div>
-      <div class="min-w-0">
-        <h3 class="text-h2 font-bold tracking-tight text-ink">
-          Flow Commerce
-          <span class="text-org font-normal text-muted">(now Global-e) &middot; <a class="text-accent" href="https://global-e.com">global-e.com</a></span>
-        </h3>
-        <ul class="bullets mt-2 flex flex-col gap-1">
-          <li>Built monitoring scrapers that validated customer integrations and surfaced
-              operational issues across accounts.</li>
-          <li>Made Kubernetes CronJobs the standard for operational automation.</li>
-        </ul>
-        <p class="mt-2 text-meta text-muted">Scala &middot; Kubernetes &middot; AWS (RDS, S3)</p>
-      </div>
-    </article>
-
-    <article class="mt-4 grid grid-cols-[theme(spacing.rail)_1fr] gap-x-7 break-inside-avoid">
-      <div class="pt-1.5 text-meta tabular-nums text-muted">
-        Apr 2008<br>Aug 2018
-        <span class="mt-1 block text-faint">10 yrs</span>
-      </div>
-      <div class="min-w-0">
-        <h3 class="text-h2 font-bold tracking-tight text-ink">Earlier</h3>
-        <p class="mt-2">
-          Engineering roles at <strong class="font-semibold text-ink">Intercom</strong>,
-          <strong class="font-semibold text-ink">Gilt</strong>,
-          <strong class="font-semibold text-ink">Wengo</strong>,
-          <strong class="font-semibold text-ink">PAP.fr</strong>, and more: distributed
-          systems, search infrastructure, cloud platforms and developer tooling, in Scala,
-          Java, Go, Ruby, C#, PHP, JavaScript and Python.
-        </p>
-      </div>
-    </article>
-  </section>
-
-</div>
+  <div class="sheet">
+    <section class="pt-6">
+      <h2 class="mb-3 text-section font-extrabold tracking-[-0.03em] text-ink">${cv.experience.title}</h2>
+      ${entries(cv.experience.entries, "mt-4")}
+    </section>
+  </div>`;
+</script>
