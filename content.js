@@ -60,6 +60,7 @@ const cv = {
         to: "Oct 2026",
         duration: "1 yr 10 mo",
         name: "Spoak Design",
+        role: "Staff Software Engineer",
         url: "https://spoak.com",
         bullets: [
           `Built and ran the product’s image and text search: a CLIP model served on GPU,
@@ -76,6 +77,7 @@ const cv = {
         to: "Jan 2025",
         duration: "1 yr 4 mo",
         name: "Utmost",
+        role: "Senior Software Engineer",
         note: "(now Beeline)",
         url: "https://beeline.com",
         bullets: [
@@ -91,6 +93,7 @@ const cv = {
         to: "Jul 2023",
         duration: "1 yr 8 mo",
         name: "Thrive Global",
+        role: "Senior Software Engineer",
         url: "https://thriveglobal.com",
         bullets: [
           `Designed and built video discovery from the backend to the UI, as rows of
@@ -106,6 +109,7 @@ const cv = {
         to: "Nov 2021",
         duration: "1 yr 6 mo",
         name: "TD Securities",
+        role: "Senior Software Engineer",
         url: "https://tdsecurities.com",
         bullets: [
           `Ran weekly technical training for engineers across the team, and wrote the
@@ -120,6 +124,7 @@ const cv = {
         to: "May 2020",
         duration: "1 yr 10 mo",
         name: "Flow Commerce",
+        role: "Senior Software Engineer",
         note: "(now Global-e)",
         url: "https://global-e.com",
         bullets: [
@@ -134,6 +139,7 @@ const cv = {
         to: "Aug 2018",
         duration: "10 yrs",
         name: "Earlier",
+        role: "Software Engineer",
         text: `Engineering roles at <strong>Intercom</strong>, <strong>Gilt</strong>,
                <strong>Wengo</strong>, <strong>PAP.fr</strong>, and more: distributed
                systems, search infrastructure, cloud platforms and developer tooling, in

@@ -107,6 +107,7 @@ const entry = (e, gap) => `
         ${e.name}
         ${e.url ? `<span class="text-org font-normal text-muted">${e.note ? `${e.note} ` : ""}&middot; ${link(e.url)}</span>` : ""}
       </h3>
+      ${e.role ? `<p class="mt-0.5 text-org font-semibold">${e.role}</p>` : ""}
       ${e.bullets ? `<ul class="bullets mt-2 flex flex-col gap-1">${e.bullets.map((b) => `<li>${b}</li>`).join("")}</ul>` : ""}
       ${e.text ? `<p class="mt-2">${e.text}</p>` : ""}
       ${e.stack ? `<p class="mt-2 text-meta text-muted">${e.stack.join(" &middot; ")}</p>` : ""}
@@ -140,7 +141,7 @@ document.getElementById("cv").innerHTML = `
   </div>
 
   <div class="sheet">
-    <section class="pt-6">
+    <section>
       <h2 class="mb-3 text-section font-extrabold tracking-[-0.03em] text-ink">${cv.experience.title}</h2>
       ${entries(cv.experience.entries, "mt-4")}
     </section>
